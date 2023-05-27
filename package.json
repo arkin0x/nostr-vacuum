@@ -1,0 +1,21 @@
+{
+  "name": "vacuum",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@types/latlon-geohash": "^2.0.0",
+    "arclib": "https://github.com/ArcadeLabsInc/arclib",
+    "latlon-geohash": "^2.0.0",
+    "nostr-tools": "^1.11.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.2",
+    "vite": "^4.3.2"
+  }
+}
