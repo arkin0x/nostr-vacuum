@@ -139,6 +139,7 @@ function buildSocialGraph(pubkey: string, contacts: NIP02Contact[], degree: numb
 }
 
 const STALE_GRAPH = 1000 * 60 * 60 * 24 * 7 // 1 week
+const GRAPH_DEPTH = 3
 
 function iterateSocialGraph() {
   console.log('iterating...')
@@ -156,7 +157,7 @@ function iterateSocialGraph() {
   // if the contact's social graph is stale and <3rd degree, update it
   if (
     now - socialGraph[contact].lastUpdated > STALE_GRAPH && 
-    socialGraph[contact].degree + 1 < 4
+    socialGraph[contact].degree + 1 <= GRAPH_DEPTH
     ) {
     extendSocialGraph(contact, socialGraph[contact].degree + 1)
     iteration++
@@ -201,3 +202,10 @@ function traverse(pubkey) {
 }
 
 window.traverse = traverse
+
+// show when each contact was last updated
+function lastUpdate(){
+  return Object.keys(socialGraph).sort( (a,b) => socialGraph[b].lastUpdated - socialGraph[a].lastUpdated ).map( pk => `${(((+new Date()) - socialGraph[pk].lastUpdated)/1000/60).toFixed(1) + 'm ago'} - 0x${pk.substring(0,6)} ` )
+}
+
+window.lastUpdate = lastUpdate
